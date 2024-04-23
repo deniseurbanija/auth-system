@@ -1,3 +1,11 @@
-# Authentication System
+<div align="center">
+  <h1>Authentication System 🔐</h1>
+</div>
 
-This is a basic authentication system developed with Node.js, Express, and MongoDB. It allows users to register, log in, and access protected routes.
+## About
+Authentication System is a backend application developed with Node.js, Express.js, and MongoDB. It provides user registration, login functionality, and access to protected routes using bcryptjs for password hashing and jsonwebtoken for user authentication. The system supports both regular users and admin users.
+
+## Features
+- User registration
+- User login
+- Access to protected routes based on user authorization (regular user or admin)
