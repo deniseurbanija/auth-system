@@ -2,9 +2,10 @@
   "name": "auth-system",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
     "start": "nodemon"
   },
   "keywords": [],
@@ -19,5 +20,13 @@
     "mongoose": "^8.3.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.12.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
