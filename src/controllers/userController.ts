@@ -4,10 +4,11 @@ import {
   loginService,
   getUsersService,
   getUserByIdService,
+  deleteUserService,
 } from "../services/userService";
 import { IUser } from "../Interfaces/IUser";
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsersController = async (req: Request, res: Response) => {
   try {
     const users: IUser[] = await getUsersService();
     res.status(200).json(users);
@@ -16,7 +17,7 @@ export const getUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getUser = async (req: Request, res: Response) => {
+export const getUserController = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
     const user: IUser = await getUserByIdService(userId);
@@ -45,5 +46,15 @@ export const registerController = async (req: Request, res: Response) => {
     res.status(201).json(newUser);
   } catch (error) {
     res.status(404).json("error");
+  }
+};
+
+export const deleteUserController = async (req: Request, res: Response) => {
+  const userId = req.params.id;
+  try {
+    const idk = await deleteUserService(userId);
+    res.status(200).send(idk);
+  } catch (error) {
+    res.status(404).send("Error deleting user");
   }
 };

@@ -1,18 +1,18 @@
 import { Router } from "express";
 import {
-    getUser,
-    getUsers,
+  deleteUserController,
+  getUserController,
+  getUsersController,
   loginController,
   registerController,
 } from "../controllers/userController";
-// import validateToken from "../middlewares/validateToken";
 
 const userRouter = Router();
 
-userRouter.get("/", getUsers)
-userRouter.get("/:id", getUser)
+userRouter.get("/", getUsersController);
+userRouter.get("/:id", getUserController);
+userRouter.delete("/:id", deleteUserController);
 userRouter.post("/register", registerController);
 userRouter.post("/login", loginController);
-
 
 export default userRouter;

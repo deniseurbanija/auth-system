@@ -1,13 +1,7 @@
 import { IUser } from "../Interfaces/IUser";
 import User from "../models/User";
-import jwt from "jsonwebtoken";
-import "dotenv/config";
-
-const secret = process.env.SECRET as String;
-
-const generateAccessToken = (user: any): string => {
-  return jwt.sign(user, secret as string, { expiresIn: "10m" });
-};
+import { generateToken } from "../utils/generateToken";
+import bcrypt from "bcryptjs";
 
 export const getUsersService = async (): Promise<IUser[]> => {
   const users = await User.find();
@@ -31,13 +25,19 @@ export const registerService = async (userData: IUser): Promise<IUser> => {
 
 export const loginService = async (userData: IUser): Promise<string> => {
   const { username, password } = userData;
-  const foundUser = await User.findOne({ username: username });
+  const foundUser = await User.findOne({ username });
   if (!foundUser) throw new Error("User not found");
 
-  if (foundUser.password !== password) {
+  const compare = await bcrypt.compare(password, foundUser.password);
+  if (!compare) {
     throw new Error("Incorrect password");
   } else {
-    const token = generateAccessToken({ username: foundUser.username });
+    const token = generateToken({ username: foundUser.username });
     return token;
   }
+};
+
+export const deleteUserService = async (id: string) => {
+  const deletedUser = await User.deleteOne({ _id: id });
+  return deletedUser;
 };
