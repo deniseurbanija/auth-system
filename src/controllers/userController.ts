@@ -13,6 +13,7 @@ export const getUsersController = async (req: Request, res: Response) => {
     const users: IUser[] = await getUsersService();
     res.status(200).json(users);
   } catch (error) {
+    console.log(error); //log the error
     res.status(500).json("Error finding users");
   }
 };
@@ -35,7 +36,7 @@ export const loginController = async (req: Request, res: Response) => {
       .header("authorization", token)
       .json({ message: "Authenticated", token: token });
   } catch (error) {
-    res.status(401).json("error");
+    res.status(401).json("Incorrect password or username");
   }
 };
 
@@ -45,7 +46,7 @@ export const registerController = async (req: Request, res: Response) => {
     const newUser = await registerService(userData);
     res.status(201).json(newUser);
   } catch (error) {
-    res.status(404).json("error");
+    res.status(404).json("Error registering new user");
   }
 };
 

@@ -18,15 +18,14 @@ export const getUserByIdService = async (id: string) => {
 
 export const registerService = async (userData: IUser): Promise<IUser> => {
   const { username, password } = userData;
-  const newUser = new User({ username: username, password: password });
-  await newUser.save();
+  const newUser = User.create({ username: username, password: password });
   return newUser;
 };
 
 export const loginService = async (userData: IUser): Promise<string> => {
   const { username, password } = userData;
   const foundUser = await User.findOne({ username });
-  if (!foundUser) throw new Error("User not found");
+  if (!foundUser) throw new Error("Incorrect username or password");
 
   const compare = await bcrypt.compare(password, foundUser.password);
   if (!compare) {
