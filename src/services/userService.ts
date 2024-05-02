@@ -3,18 +3,6 @@ import User from "../models/User";
 import { generateToken } from "../utils/generateToken";
 import bcrypt from "bcryptjs";
 
-export const getUsersService = async (): Promise<IUser[]> => {
-  const users = await User.find();
-  return users;
-};
-
-export const getUserByIdService = async (id: string) => {
-  const foundUserById: IUser | null = await User.findById(id);
-
-  if (!foundUserById) throw new Error("User not found");
-
-  return foundUserById;
-};
 
 export const registerService = async (userData: IUser): Promise<IUser> => {
   const { username, password } = userData;
@@ -36,7 +24,20 @@ export const loginService = async (userData: IUser): Promise<string> => {
   }
 };
 
-export const deleteUserService = async (id: string) => {
-  const deletedUser = await User.deleteOne({ _id: id });
-  return deletedUser;
-};
+// export const getUsersService = async (): Promise<IUser[]> => {
+//   const users = await User.find();
+//   return users;
+// };
+
+// export const getUserByIdService = async (id: string) => {
+//   const foundUserById: IUser | null = await User.findById(id);
+
+//   if (!foundUserById) throw new Error("User not found");
+
+//   return foundUserById;
+// };
+
+// export const deleteUserService = async (id: string) => {
+//   const deletedUser = await User.deleteOne({ _id: id });
+//   return deletedUser;
+// };

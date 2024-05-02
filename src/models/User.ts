@@ -1,12 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 
-
 const userSchema = new mongoose.Schema({
-  _id: {type: Schema.Types.ObjectId},
+  _id: { type: Schema.Types.ObjectId },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  contacts : [{type: Schema.Types.ObjectId, ref: "Contact"}]
+  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
 userSchema.pre("save", async function (next) {
@@ -16,9 +15,6 @@ userSchema.pre("save", async function (next) {
   }
   next();
 });
-
-// utils
-
 
 const User = mongoose.model("User", userSchema);
 
