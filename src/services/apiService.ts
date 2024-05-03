@@ -1,8 +1,9 @@
-import { IUser } from "../Interfaces/IUser";
+import { IUser } from "../models/User";
+import { postDto } from "../dtos/postDto";
+import Post from "../models/Post";
 import User from "../models/User";
 import { generateToken } from "../utils/generateToken";
 import bcrypt from "bcryptjs";
-
 
 export const registerService = async (userData: IUser): Promise<IUser> => {
   const { username, password } = userData;
@@ -24,10 +25,32 @@ export const loginService = async (userData: IUser): Promise<string> => {
   }
 };
 
-// export const getUsersService = async (): Promise<IUser[]> => {
-//   const users = await User.find();
-//   return users;
-// };
+export const getPostsService = async () => {
+  const posts = await Post.find();
+  return posts;
+};
+
+export const addPostService = async (postData: postDto) => {
+  const user = await User.findOne({ _id: postData.authorId });
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const newPost = await Post.create({
+    content: postData.content,
+    imageUrl: postData.imageUrl,
+    author: user?._id,
+    createdAt: Date.now(),
+    updatedAt: null,
+  });
+  await newPost.populate("author");
+  return newPost;
+};
+
+export const getUsersService = async (): Promise<IUser[]> => {
+  const users = await User.find();
+  return users;
+};
 
 // export const getUserByIdService = async (id: string) => {
 //   const foundUserById: IUser | null = await User.findById(id);

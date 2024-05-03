@@ -1,7 +1,14 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
+export interface IUser {
+  _id: Types.ObjectId;
+  username: string;
+  password: string;
+  posts: [Types.ObjectId];
+}
+
+const userSchema = new Schema<IUser>({
   _id: { type: Schema.Types.ObjectId },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -16,6 +23,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-const User = mongoose.model("User", userSchema);
+const User = model<IUser>("User", userSchema);
 
 export default User;

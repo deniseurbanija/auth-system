@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 import {
   registerService,
   loginService,
-  // getUsersService,
+  getPostsService,
+  addPostService,
+  getUsersService,
   // getUserByIdService,
   // deleteUserService,
-} from "../services/userService";
-import { IUser } from "../Interfaces/IUser";
-
-//
+} from "../services/apiService";
+import { IUser } from "../models/User";
 
 export const loginController = async (req: Request, res: Response) => {
   const userData = req.body;
@@ -32,15 +32,36 @@ export const registerController = async (req: Request, res: Response) => {
   }
 };
 
-// export const getUsersController = async (req: Request, res: Response) => {
-//   try {
-//     const users: IUser[] = await getUsersService();
-//     res.status(200).json(users);
-//   } catch (error) {
-//     console.log(error); //log the error
-//     res.status(500).json("Error finding users");
-//   }
-// };
+export const getPostsController = async (req: Request, res: Response) => {
+  try {
+    const posts = await getPostsService();
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(404).json("Something went wrong");
+  }
+};
+
+export const addPostsController = async (req: Request, res: Response) => {
+  const postData = req.body;
+  try {
+    const newPost = await addPostService(postData);
+    res.status(201).json({ message: "Post added succesfully", newPost });
+  } catch (error) {
+    res.status(404).json("Error adding post");
+  }
+};
+
+/* EXTRAS */
+
+export const getUsersController = async (req: Request, res: Response) => {
+  try {
+    const users: IUser[] = await getUsersService();
+    res.status(200).json(users);
+  } catch (error) {
+    console.log(error); //log the error
+    res.status(500).json("Error finding users");
+  }
+};
 
 // export const getUserController = async (req: Request, res: Response) => {
 //   try {

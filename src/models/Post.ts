@@ -1,14 +1,23 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
-const postSchema = new mongoose.Schema({
+export interface IPost {
+  _id: Types.ObjectId;
+  content: string;
+  imageUrl: string;
+  author: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const postSchema = new Schema<IPost>({
   _id: { type: Schema.Types.ObjectId },
   content: { type: String, required: true },
   imageUrl: { type: String },
-  author: { type: Schema.Types.ObjectId, ref: "User" },
+  author: { type: Schema.Types.ObjectId, ref: "User", required: true },
   createdAt: { type: Date, default: () => Date.now(), immutable: true },
-  updatedAt: { type: Date },
+  updatedAt: { type: Date, default: null },
 });
 
-const Post = mongoose.model("Post", postSchema);
+const Post = model<IPost>("Post", postSchema);
 
 export default Post;
