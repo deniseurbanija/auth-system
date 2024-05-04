@@ -1,17 +1,18 @@
 import { IUser } from "../models/User";
+import { userDto } from "../dtos/userDto";
 import { postDto } from "../dtos/postDto";
 import Post from "../models/Post";
 import User from "../models/User";
 import { generateToken } from "../utils/generateToken";
 import bcrypt from "bcryptjs";
 
-export const registerService = async (userData: IUser): Promise<IUser> => {
+export const registerService = async (userData: userDto): Promise<IUser> => {
   const { username, password } = userData;
   const newUser = User.create({ username: username, password: password });
   return newUser;
 };
 
-export const loginService = async (userData: IUser): Promise<string> => {
+export const loginService = async (userData: userDto): Promise<string> => {
   const { username, password } = userData;
   const foundUser = await User.findOne({ username });
   if (!foundUser) throw new Error("Incorrect username or password");
@@ -31,7 +32,7 @@ export const getPostsService = async () => {
 };
 
 export const addPostService = async (postData: postDto) => {
-  const user = await User.findOne({ _id: postData.authorId });
+  const user = await User.findById(postData.userId);
   if (!user) {
     throw new Error("User not found");
   }
@@ -39,11 +40,15 @@ export const addPostService = async (postData: postDto) => {
   const newPost = await Post.create({
     content: postData.content,
     imageUrl: postData.imageUrl,
-    author: user?._id,
-    createdAt: Date.now(),
+    user: postData.userId,
+    createdAt: new Date(),
     updatedAt: null,
   });
-  await newPost.populate("author");
+
+  await newPost.populate<{ user: IUser }>("user").then((doc) => {
+    const username: string = doc.user.username;
+  }); // SHOULD ONLY SHOW USERNAME!!!!
+
   return newPost;
 };
 

@@ -45,7 +45,7 @@ export const addPostsController = async (req: Request, res: Response) => {
   const postData = req.body;
   try {
     const newPost = await addPostService(postData);
-    res.status(201).json({ message: "Post added succesfully", newPost });
+    res.status(201).json(newPost);
   } catch (error) {
     res.status(404).json("Error adding post");
   }
