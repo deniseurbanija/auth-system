@@ -40,20 +40,19 @@ export const addPostService = async (postData: postDto) => {
   const newPost = await Post.create({
     content: postData.content,
     imageUrl: postData.imageUrl,
-    user: postData.userId,
+    user: user.username,
     createdAt: new Date(),
     updatedAt: null,
   });
 
-  await newPost.populate<{ user: IUser }>("user").then((doc) => {
-    const username: string = doc.user.username;
-  }); // SHOULD ONLY SHOW USERNAME!!!!
+  user.posts.push(newPost._id);
+  user.save();
 
   return newPost;
 };
 
 export const getUsersService = async (): Promise<IUser[]> => {
-  const users = await User.find();
+  const users = await User.find().populate("posts");
   return users;
 };
 
