@@ -3,9 +3,15 @@
 </div>
 
 ## About
-Authentication System is a backend application developed with Node.js, Express.js, and MongoDB. It provides user registration, login functionality, and access to protected routes using bcryptjs for password hashing and jsonwebtoken for user authentication.
+This project is a backend application that require user authentication and allow authenticated users to create posts. It is built using Express.js for the backend, TypeScript for static typing, and MongoDB as the NoSQL database. It uses JWT for user authentication.
 
 ## Features
-- User registration
-- User login
-- Access to protected routes 
+- User authentication using JWT (JSON Web Tokens).
+- Post creation for authenticated users.
+- Scalable and well-organized project structure.
+- Built with Express.js, TypeScript, and MongoDB.
+
+## Prerequisites
+
+- Node.js installed on your machine.
+- MongoDB installed and running on your machine. 
