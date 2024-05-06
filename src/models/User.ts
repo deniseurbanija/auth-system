@@ -6,7 +6,6 @@ export interface IUser {
 }
 
 const userSchema = new Schema({
-  _id: { type: Schema.Types.ObjectId },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],

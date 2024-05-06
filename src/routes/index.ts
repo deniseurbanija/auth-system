@@ -1,8 +1,12 @@
 import { Router } from "express";
-import apiRouter from "./apiRouter";
+import authRouter from "./authRouter";
+import postRouter from "./postRouter";
+import userRouter from "./userRouter";
 
 const router = Router();
 
-router.use("/api", apiRouter);
+router.use("/auth", authRouter);
+router.use("/posts", postRouter);
+router.use("/users", userRouter);
 
 export default router;
