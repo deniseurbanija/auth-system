@@ -11,7 +11,7 @@ import bcrypt from "bcryptjs";
  */
 export const registerService = async (userData: userDto): Promise<IUser> => {
   const { username, password } = userData;
-  const newUser = User.create({ username: username, password: password });
+  const newUser = await User.create({ username: username, password: password });
   return newUser;
 };
 
@@ -33,6 +33,3 @@ export const loginService = async (userData: userDto): Promise<string> => {
     return token;
   }
 };
-
-
-
