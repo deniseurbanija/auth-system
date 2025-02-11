@@ -26,7 +26,9 @@ export const loginController = async (req: Request, res: Response) => {
       .json({ message: "Authenticated", token: token });
   } catch (error) {
     if (error instanceof Error) {
-      res.status(401).json("Incorrect password or username " + error.message);
+      res
+        .status(res.statusCode)
+        .json("Incorrect password or username " + error.message);
     }
   }
 };

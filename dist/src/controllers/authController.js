@@ -38,7 +38,9 @@ const loginController = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     catch (error) {
         if (error instanceof Error) {
-            res.status(401).json("Incorrect password or username " + error.message);
+            res
+                .status(res.statusCode)
+                .json("Incorrect password or username " + error.message);
         }
     }
 });

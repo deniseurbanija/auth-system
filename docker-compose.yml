@@ -1,5 +1,8 @@
 version: "3.8"
 
+networks:
+  backend_network:
+
 services:
   backend:
     build: .
@@ -12,15 +15,17 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    networks:
+      - backend_network
 
   mongo:
     image: mongo:6
-    ports:
-      - "27017:27017"
     volumes:
       - mongo-data:/data/db
     env_file:
       - .env
+    networks:
+      - backend_network
 
 volumes:
   mongo-data:
