@@ -14,7 +14,7 @@ export const swaggerConfig = {
     },
     servers: [
       {
-        url: "http://52.87.175.254:3000",
+        url: "http://52.87.175.254:3000", //should create load-balancer
         description: "Development server",
       },
     ],
