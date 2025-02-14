@@ -31,17 +31,15 @@ export const addPostController = async (req: Request, res: Response) => {
   }
 };
 
-
 // Controller to delete post
 export const deletePostController = async (req: Request, res: Response) => {
   const postId = req.params.id;
   try {
-    const deletedPost = await deletePostService(postId);  
+    const deletedPost = await deletePostService(postId);
     res.status(200).json(deletedPost);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json("Error deleting post " + error.message);
     }
   }
-  // SHOULD ONLY DELETE IF POST.USER = USER.USERNAME !!!
 };
