@@ -27,7 +27,7 @@ Before running this project, make sure you have:
 ### Local Development
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/deniseurbanija/auth-system.git
 cd authentication-system
 ```
 
