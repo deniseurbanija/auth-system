@@ -28,7 +28,7 @@ Before running this project, make sure you have:
 1. Clone the repository:
 ```bash
 git clone https://github.com/deniseurbanija/auth-system.git
-cd authentication-system
+cd auth-system
 ```
 
 2. Install dependencies:
